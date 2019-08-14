@@ -6,3 +6,5 @@ obj
 packages
 bin/
 obj/
+.vscode
+.vs/

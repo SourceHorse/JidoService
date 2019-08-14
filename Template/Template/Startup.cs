@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using Couchbase.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Template.Infrastructure.Couchbase;
+using Template.Infrastructure.Extensions.DependencyInjection;
 
 namespace Template
 {
@@ -18,6 +23,17 @@ namespace Template
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // from https://blog.couchbase.com/dependency-injection-aspnet-couchbase/
+
+            services.AddInfrastructure();
+
+            services.AddCouchbase(client =>
+            {
+                client.Servers = new List<Uri> {new Uri("http://localhost:8091")};
+                client.UseSsl = false;
+            });
+            services.AddCouchbaseBucket<ITestBucketProvider>("TestBucket");
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
