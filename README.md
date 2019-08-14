@@ -1,2 +1,2 @@
 # dotnetCore.Api.Template
-A template for a dotnet core api
+This is a basic template for creating dotnet core APIs.
