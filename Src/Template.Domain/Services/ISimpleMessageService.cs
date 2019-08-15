@@ -12,5 +12,11 @@ namespace Template.Domain.Services
         /// </summary>
         /// <param name="simpleMessage">The message</param>
         SimpleMessage AddMessage(SimpleMessage simpleMessage);
+
+        /// <summary>
+        /// Retrieves a message
+        /// </summary>
+        /// <param name="id">The message id</param>
+        SimpleMessage RetrieveMessage(Guid id);
     }
 }

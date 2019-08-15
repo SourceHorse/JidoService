@@ -41,5 +41,25 @@ namespace Template.Infrastructure.Couchbase
                 CreatedOn = savedDocument.CreatedOn
             };
         }
+
+        public SimpleMessage RetrieveMessage(Guid id)
+        {
+            var couchbaseKey = $"SimpleMessage.{id}";
+            var document = _bucket.GetDocument<SimpleMessageDbModel>(couchbaseKey).Content;
+
+            if (document == null)
+            {
+                return null;
+            }
+
+            // TODO: Implement AutoMapper
+            return new SimpleMessage
+            {
+                Id = document.Id,
+                Title = document.Title,
+                Body = document.Body,
+                CreatedOn = document.CreatedOn
+            };
+        }
     }
 }

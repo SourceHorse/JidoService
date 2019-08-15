@@ -24,5 +24,17 @@ namespace Template.Api.Controllers
 
             return new CreatedResult("/SimpleMessage", savedDocument);
         }
+
+        // GET /simplemessage/{id}
+        [HttpGet("{id}")]
+        public IActionResult Read([FromRoute] string id)
+        {
+            var retrievedDocument = _simpleMessageService.RetrieveMessage(new Guid(id));
+            if (retrievedDocument == null)
+            {
+                return new NotFoundResult();
+            }
+            return new OkObjectResult(retrievedDocument);
+        }
     }
 }

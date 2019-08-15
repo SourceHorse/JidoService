@@ -18,5 +18,10 @@ namespace Template.Domain.Services.Impl
         {
             return _simpleMessageRepository.AddMessage(simpleMessage);
         }
+
+        public SimpleMessage RetrieveMessage(Guid id)
+        {
+            return _simpleMessageRepository.RetrieveMessage(id);
+        }
     }
 }
