@@ -1,11 +1,12 @@
 ﻿using System;
+using Template.Domain.Models;
 
 namespace Template.Infrastructure.Couchbase.Models
 {
     /// <summary>
     /// A simple message db model
     /// </summary>
-    public class SimpleMessageDbModel : BaseDbModel
+    public class SimpleMessageDbModel : BaseModel
     {
         /// <summary>
         /// The message id

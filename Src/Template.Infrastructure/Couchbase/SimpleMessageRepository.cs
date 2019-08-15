@@ -18,7 +18,7 @@ namespace Template.Infrastructure.Couchbase
         }
 
         /// <inheritdoc />
-        public void AddMessage(SimpleMessage simpleMessage)
+        public SimpleMessage AddMessage(SimpleMessage simpleMessage)
         {
             // TODO: Implement AutoMapper
             var dbMessage = new SimpleMessageDbModel
@@ -28,7 +28,18 @@ namespace Template.Infrastructure.Couchbase
                 Body = simpleMessage.Body
             };
 
-            _bucket.Upsert($"SimpleMessage.{dbMessage.Id}", dbMessage);
+            var couchbaseKey = $"SimpleMessage.{dbMessage.Id}";
+            _bucket.Upsert(couchbaseKey, dbMessage);
+            var savedDocument = _bucket.GetDocument<SimpleMessageDbModel>(couchbaseKey).Content;
+
+            // TODO: Implement AutoMapper
+            return new SimpleMessage
+            {
+                Id = savedDocument.Id,
+                Title = savedDocument.Title,
+                Body = savedDocument.Body,
+                CreatedOn = savedDocument.CreatedOn
+            };
         }
     }
 }

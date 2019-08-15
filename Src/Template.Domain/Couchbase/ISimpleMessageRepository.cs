@@ -8,6 +8,6 @@ namespace Template.Domain.Couchbase
         /// Adds a simple message
         /// </summary>
         /// <param name="simpleMessage">The message</param>
-        void AddMessage(SimpleMessage simpleMessage);
+        SimpleMessage AddMessage(SimpleMessage simpleMessage);
     }
 }

@@ -5,7 +5,7 @@ namespace Template.Domain.Models
     /// <summary>
     /// A simple message
     /// </summary>
-    public class SimpleMessage
+    public class SimpleMessage : BaseModel
     {
         /// <summary>
         /// The message id
