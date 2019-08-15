@@ -47,11 +47,13 @@ namespace Template.Controllers
         {
         }
 
-        // POST api/values
-        [HttpPost("InsertCouchbase")]
-        public void InsertCouchbase()
+        // Get api/values
+        [HttpGet("InsertCouchbase")]
+        public IActionResult InsertCouchbase()
         {
             _couchbase.AddTestValue();
+
+            return Ok("done");
         }
     }
 }

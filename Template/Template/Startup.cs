@@ -31,6 +31,8 @@ namespace Template
             {
                 client.Servers = new List<Uri> {new Uri("http://localhost:8091")};
                 client.UseSsl = false;
+                client.Username = "Administrator";
+                client.Password = "administrator";
             });
             services.AddCouchbaseBucket<ITestBucketProvider>("TestBucket");
 
