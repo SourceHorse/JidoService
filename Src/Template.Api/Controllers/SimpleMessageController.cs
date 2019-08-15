@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Template.Domain.Models;
-using Template.Infrastructure.Couchbase;
+using Template.Domain.Services;
 
 namespace Template.Api.Controllers
 {
@@ -9,13 +9,20 @@ namespace Template.Api.Controllers
     [ApiController]
     public class SimpleMessageController
     {
+        private readonly ISimpleMessageService _simpleMessageService;
+
+        public SimpleMessageController(ISimpleMessageService simpleMessageService)
+        {
+            _simpleMessageService = simpleMessageService ?? throw new ArgumentNullException(nameof(simpleMessageService));
+        }
 
         // POST /simplemessage
         [HttpPost]
         public IActionResult Create([FromBody] SimpleMessage simpleMessage)
         {
+            _simpleMessageService.AddMessage(simpleMessage);
 
-            return Create(simpleMessage);
+            return new CreatedResult("/SimpleMessage", simpleMessage);
         }
     }
 }

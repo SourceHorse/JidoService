@@ -5,7 +5,7 @@ using Template.Domain.Models;
 
 namespace Template.Domain.Services
 {
-    interface ISimpleMessageService
+    public interface ISimpleMessageService
     {
         /// <summary>
         /// Adds a simple message

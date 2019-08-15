@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Template.Infrastructure.Couchbase;
 
 namespace Template.Controllers
 {
@@ -8,13 +7,6 @@ namespace Template.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly ICouchbase _couchbase;
-
-        public ValuesController(ICouchbase couchbase)
-        {
-            _couchbase = couchbase;
-        }
-
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -45,15 +37,6 @@ namespace Template.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
-
-        // Get api/values
-        [HttpGet("InsertCouchbase")]
-        public IActionResult InsertCouchbase()
-        {
-            _couchbase.AddTestValue();
-
-            return Ok("done");
         }
     }
 }

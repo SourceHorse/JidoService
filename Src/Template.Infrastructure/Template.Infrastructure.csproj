@@ -9,4 +9,8 @@
     <PackageReference Include="CouchbaseNetClient" Version="2.5.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

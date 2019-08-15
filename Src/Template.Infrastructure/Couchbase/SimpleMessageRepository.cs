@@ -23,9 +23,9 @@ namespace Template.Infrastructure.Couchbase
             // TODO: Implement AutoMapper
             var dbMessage = new SimpleMessageDbModel
             {
-                Id = simpleMessage.Id,
+                Id = Guid.NewGuid(),
                 Title = simpleMessage.Title,
-                Message = simpleMessage.Message
+                Body = simpleMessage.Body
             };
 
             _bucket.Upsert($"SimpleMessage.{dbMessage.Id}", dbMessage);

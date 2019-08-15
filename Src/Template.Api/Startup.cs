@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Template.Infrastructure.Couchbase;
-using Template.Infrastructure.Extensions.DependencyInjection;
 
 namespace Template
 {
@@ -23,10 +22,12 @@ namespace Template
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // from https://blog.couchbase.com/dependency-injection-aspnet-couchbase/
 
+            services.AddDomain();
             services.AddInfrastructure();
 
+            // Couchbase
+            // from https://blog.couchbase.com/dependency-injection-aspnet-couchbase/
             services.AddCouchbase(client =>
             {
                 client.Servers = new List<Uri> {new Uri("http://localhost:8091")};
@@ -36,7 +37,9 @@ namespace Template
             });
             services.AddCouchbaseBucket<ITestBucketProvider>("TestBucket");
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

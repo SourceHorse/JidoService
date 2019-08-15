@@ -18,8 +18,8 @@ namespace Template.Infrastructure.Couchbase.Models
         public string Title { get; set; }
 
         /// <summary>
-        /// The message
+        /// The message body
         /// </summary>
-        public string Message { get; set; }
+        public string Body { get; set; }
     }
 }
