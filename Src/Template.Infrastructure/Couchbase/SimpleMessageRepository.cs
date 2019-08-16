@@ -30,7 +30,7 @@ namespace Template.Infrastructure.Couchbase
 
             var couchbaseKey = GetCouchbaseKey(dbMessage.Id);
             _bucket.Insert(couchbaseKey, dbMessage);
-            var savedDocument = _bucket.Get<SimpleMessageDbModel>(couchbaseKey).Value;
+            var savedDocument = GetMessage(couchbaseKey);
 
             // TODO: Implement AutoMapper
             return new SimpleMessage
@@ -45,8 +45,7 @@ namespace Template.Infrastructure.Couchbase
         /// <inheritdoc />
         public SimpleMessage RetrieveMessage(Guid id)
         {
-            
-            var document = _bucket.Get<SimpleMessageDbModel>(GetCouchbaseKey(id)).Value;
+            var document = GetMessage(GetCouchbaseKey(id));
 
             if (document == null)
             {
@@ -64,31 +63,33 @@ namespace Template.Infrastructure.Couchbase
         }
 
         /// <inheritdoc />
-        public SimpleMessage UpdateMessage(SimpleMessage simpleMessage)
+        public SimpleMessage UpdateMessage(Guid id, SimpleMessage simpleMessage)
         {
-            // TODO: Implement AutoMapper
-            var dbMessage = new SimpleMessageDbModel
-            {
-                Id = simpleMessage.Id,
-                Title = simpleMessage.Title,
-                Body = simpleMessage.Body
-            };
+            var couchbaseKey = GetCouchbaseKey(id);
+            var existingDocument = GetMessage(couchbaseKey);
 
-            var updatedDocument = _bucket.Replace(GetCouchbaseKey(dbMessage.Id), dbMessage).Value;
-
-            if (updatedDocument == null)
+            if (existingDocument == null)
             {
                 return null;
             }
 
             // TODO: Implement AutoMapper
-            return new SimpleMessage
+            var dbMessage = new SimpleMessageDbModel
             {
-                Id = updatedDocument.Id,
-                Title = updatedDocument.Title,
-                Body = updatedDocument.Body,
-                CreatedOn = updatedDocument.CreatedOn
+                Id = id,
+                Title = simpleMessage.Title,
+                Body = simpleMessage.Body,
+                CreatedOn = existingDocument.CreatedOn
             };
+
+            _bucket.Replace(GetCouchbaseKey(dbMessage.Id), dbMessage);
+
+            return RetrieveMessage(id);
+        }
+
+        private SimpleMessageDbModel GetMessage(string couchbaseKey)
+        {
+            return _bucket.Get<SimpleMessageDbModel>(couchbaseKey).Value;
         }
 
         private string GetCouchbaseKey(Guid id)

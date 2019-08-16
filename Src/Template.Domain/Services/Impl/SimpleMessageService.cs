@@ -23,5 +23,10 @@ namespace Template.Domain.Services.Impl
         {
             return _simpleMessageRepository.RetrieveMessage(id);
         }
+
+        public SimpleMessage UpdateMessage(Guid id, SimpleMessage simpleMessage)
+        {
+            return _simpleMessageRepository.UpdateMessage(id, simpleMessage);
+        }
     }
 }

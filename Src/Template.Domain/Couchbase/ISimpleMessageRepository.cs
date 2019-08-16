@@ -20,7 +20,8 @@ namespace Template.Domain.Couchbase
         /// <summary>
         /// Updates a simple message
         /// </summary>
+        /// <param name="id">The message id</param>
         /// <param name="simpleMessage">The message</param>
-        SimpleMessage UpdateMessage(SimpleMessage simpleMessage);
+        SimpleMessage UpdateMessage(Guid id, SimpleMessage simpleMessage);
     }
 }

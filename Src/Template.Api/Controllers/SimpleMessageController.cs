@@ -16,7 +16,7 @@ namespace Template.Api.Controllers
             _simpleMessageService = simpleMessageService ?? throw new ArgumentNullException(nameof(simpleMessageService));
         }
 
-        // POST /simplemessage
+        // POST /SimpleMessage
         [HttpPost]
         public IActionResult Create([FromBody] SimpleMessage simpleMessage)
         {
@@ -25,7 +25,7 @@ namespace Template.Api.Controllers
             return new CreatedResult("/SimpleMessage", savedDocument);
         }
 
-        // GET /simplemessage/{id}
+        // GET /SimpleMessage/{id}
         [HttpGet("{id}")]
         public IActionResult Read([FromRoute] string id)
         {
@@ -34,7 +34,22 @@ namespace Template.Api.Controllers
             {
                 return new NotFoundResult();
             }
+
             return new OkObjectResult(retrievedDocument);
+        }
+
+        // PUT /SimpleMessage/{id}
+        [HttpPut("{id}")]
+        public IActionResult Update([FromRoute] string id, [FromBody] SimpleMessage simpleMessage)
+        {
+            var updatedDocument = _simpleMessageService.UpdateMessage(new Guid(id), simpleMessage);
+
+            if (updatedDocument == null)
+            {
+                return new NotFoundResult();
+            }
+
+            return new OkObjectResult(updatedDocument);
         }
     }
 }
