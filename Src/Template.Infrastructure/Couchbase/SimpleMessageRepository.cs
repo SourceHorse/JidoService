@@ -30,7 +30,7 @@ namespace Template.Infrastructure.Couchbase
 
             var couchbaseKey = GetCouchbaseKey(dbMessage.Id);
             _bucket.Insert(couchbaseKey, dbMessage);
-            var savedDocument = _bucket.GetDocument<SimpleMessageDbModel>(couchbaseKey).Content;
+            var savedDocument = _bucket.Get<SimpleMessageDbModel>(couchbaseKey).Value;
 
             // TODO: Implement AutoMapper
             return new SimpleMessage
@@ -45,7 +45,8 @@ namespace Template.Infrastructure.Couchbase
         /// <inheritdoc />
         public SimpleMessage RetrieveMessage(Guid id)
         {
-            var document = _bucket.GetDocument<SimpleMessageDbModel>(GetCouchbaseKey(id)).Content;
+            
+            var document = _bucket.Get<SimpleMessageDbModel>(GetCouchbaseKey(id)).Value;
 
             if (document == null)
             {
