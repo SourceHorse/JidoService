@@ -16,5 +16,11 @@ namespace Template.Domain.Couchbase
         /// </summary>
         /// <param name="id">The message id</param>
         SimpleMessage RetrieveMessage(Guid id);
+
+        /// <summary>
+        /// Updates a simple message
+        /// </summary>
+        /// <param name="simpleMessage">The message</param>
+        SimpleMessage UpdateMessage(SimpleMessage simpleMessage);
     }
 }

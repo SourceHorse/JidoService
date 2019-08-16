@@ -28,8 +28,8 @@ namespace Template.Infrastructure.Couchbase
                 Body = simpleMessage.Body
             };
 
-            var couchbaseKey = $"SimpleMessage.{dbMessage.Id}";
-            _bucket.Upsert(couchbaseKey, dbMessage);
+            var couchbaseKey = GetCouchbaseKey(dbMessage.Id);
+            _bucket.Insert(couchbaseKey, dbMessage);
             var savedDocument = _bucket.GetDocument<SimpleMessageDbModel>(couchbaseKey).Content;
 
             // TODO: Implement AutoMapper
@@ -42,10 +42,10 @@ namespace Template.Infrastructure.Couchbase
             };
         }
 
+        /// <inheritdoc />
         public SimpleMessage RetrieveMessage(Guid id)
         {
-            var couchbaseKey = $"SimpleMessage.{id}";
-            var document = _bucket.GetDocument<SimpleMessageDbModel>(couchbaseKey).Content;
+            var document = _bucket.GetDocument<SimpleMessageDbModel>(GetCouchbaseKey(id)).Content;
 
             if (document == null)
             {
@@ -60,6 +60,39 @@ namespace Template.Infrastructure.Couchbase
                 Body = document.Body,
                 CreatedOn = document.CreatedOn
             };
+        }
+
+        /// <inheritdoc />
+        public SimpleMessage UpdateMessage(SimpleMessage simpleMessage)
+        {
+            // TODO: Implement AutoMapper
+            var dbMessage = new SimpleMessageDbModel
+            {
+                Id = simpleMessage.Id,
+                Title = simpleMessage.Title,
+                Body = simpleMessage.Body
+            };
+
+            var updatedDocument = _bucket.Replace(GetCouchbaseKey(dbMessage.Id), dbMessage).Value;
+
+            if (updatedDocument == null)
+            {
+                return null;
+            }
+
+            // TODO: Implement AutoMapper
+            return new SimpleMessage
+            {
+                Id = updatedDocument.Id,
+                Title = updatedDocument.Title,
+                Body = updatedDocument.Body,
+                CreatedOn = updatedDocument.CreatedOn
+            };
+        }
+
+        private string GetCouchbaseKey(Guid id)
+        {
+            return $"SimpleMessage.{id}";
         }
     }
 }
