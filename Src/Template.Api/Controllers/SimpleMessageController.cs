@@ -51,5 +51,14 @@ namespace Template.Api.Controllers
 
             return new OkObjectResult(updatedDocument);
         }
+
+        // DELETE /SimpleMessage/{id}
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] string id)
+        {
+            _simpleMessageService.DeleteMessage(new Guid(id));
+
+            return new OkResult();
+        }
     }
 }

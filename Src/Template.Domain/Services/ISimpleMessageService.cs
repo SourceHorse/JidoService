@@ -25,5 +25,11 @@ namespace Template.Domain.Services
         /// <param name="id">The message id</param>
         /// <param name="simpleMessage">The message</param>
         SimpleMessage UpdateMessage(Guid id, SimpleMessage simpleMessage);
+
+        /// <summary>
+        /// Soft deletes a message
+        /// </summary>
+        /// <param name="id">The message id</param>
+        void DeleteMessage(Guid id);
     }
 }

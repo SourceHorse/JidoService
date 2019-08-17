@@ -23,5 +23,11 @@ namespace Template.Domain.Couchbase
         /// <param name="id">The message id</param>
         /// <param name="simpleMessage">The message</param>
         SimpleMessage UpdateMessage(Guid id, SimpleMessage simpleMessage);
+
+        /// <summary>
+        /// Disables a message for soft delete
+        /// </summary>
+        /// <param name="id"></param>
+        void DisableMessage(Guid id);
     }
 }

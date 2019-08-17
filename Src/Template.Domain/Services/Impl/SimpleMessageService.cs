@@ -19,14 +19,22 @@ namespace Template.Domain.Services.Impl
             return _simpleMessageRepository.AddMessage(simpleMessage);
         }
 
+        /// <inheritdoc />
         public SimpleMessage RetrieveMessage(Guid id)
         {
             return _simpleMessageRepository.RetrieveMessage(id);
         }
 
+        /// <inheritdoc />
         public SimpleMessage UpdateMessage(Guid id, SimpleMessage simpleMessage)
         {
             return _simpleMessageRepository.UpdateMessage(id, simpleMessage);
+        }
+
+        /// <inheritdoc />
+        public void DeleteMessage(Guid id)
+        {
+            _simpleMessageRepository.DisableMessage(id);
         }
     }
 }

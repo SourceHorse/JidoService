@@ -58,7 +58,8 @@ namespace Template.Infrastructure.Couchbase
                 Id = document.Id,
                 Title = document.Title,
                 Body = document.Body,
-                CreatedOn = document.CreatedOn
+                CreatedOn = document.CreatedOn,
+                Enabled = document.Enabled
             };
         }
 
@@ -68,7 +69,7 @@ namespace Template.Infrastructure.Couchbase
             var couchbaseKey = GetCouchbaseKey(id);
             var existingDocument = GetMessage(couchbaseKey);
 
-            if (existingDocument == null)
+            if (existingDocument == null || !existingDocument.Enabled)
             {
                 return null;
             }
@@ -85,6 +86,16 @@ namespace Template.Infrastructure.Couchbase
             _bucket.Replace(GetCouchbaseKey(dbMessage.Id), dbMessage);
 
             return RetrieveMessage(id);
+        }
+
+        /// <inheritdoc />
+        public void DisableMessage(Guid id)
+        {
+            var couchbaseKey = GetCouchbaseKey(id);
+            var message = GetMessage(couchbaseKey);
+            message.Enabled = false;
+
+            _bucket.Replace(couchbaseKey, message);
         }
 
         private SimpleMessageDbModel GetMessage(string couchbaseKey)
