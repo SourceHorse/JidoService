@@ -7,7 +7,7 @@ namespace Template.Domain.Models
     /// <summary>
     /// For creating a new simple message
     /// </summary>
-    class SimpleMessageCreateRequest
+    public class SimpleMessageCreateRequest
     {
         /// <summary>
         /// The message title

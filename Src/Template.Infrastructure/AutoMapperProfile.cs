@@ -13,6 +13,10 @@ namespace Template.Infrastructure
         {
             CreateMap<SimpleMessage, SimpleMessageDbModel>();
             CreateMap<SimpleMessageDbModel, SimpleMessage>();
+            CreateMap<SimpleMessageCreateRequest, SimpleMessageDbModel>()
+                .ForMember(dest => dest.CreatedOn, opt => opt.Equals(new DateTime()))
+                .ForMember(dest => dest.Enabled, opt => opt.Equals(true));
+            CreateMap<SimpleMessageUpdateRequest, SimpleMessageDbModel>();
         }
     }
 }

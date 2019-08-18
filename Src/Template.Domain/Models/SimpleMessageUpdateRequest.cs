@@ -7,7 +7,7 @@ namespace Template.Domain.Models
     /// <summary>
     /// For updating an existing simple message
     /// </summary>
-    class SimpleMessageUpdateRequest
+    public class SimpleMessageUpdateRequest
     {
         /// <summary>
         /// The message title
