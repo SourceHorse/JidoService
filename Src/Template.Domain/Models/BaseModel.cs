@@ -6,12 +6,6 @@ namespace Template.Domain.Models
 {
     public class BaseModel
     {
-        public BaseModel()
-        {
-            CreatedOn = DateTime.UtcNow;
-            Enabled = true;
-        }
-
         /// <summary>
         /// The message create datetime
         /// </summary>
