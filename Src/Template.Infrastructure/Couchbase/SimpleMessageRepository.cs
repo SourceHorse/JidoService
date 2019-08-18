@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AutoMapper;
 using Couchbase.Core;
 using Template.Domain.Couchbase;
 using Template.Domain.Models;
@@ -11,35 +12,24 @@ namespace Template.Infrastructure.Couchbase
     class SimpleMessageRepository : ISimpleMessageRepository
     {
         private readonly IBucket _bucket;
+        private readonly IMapper _mapper;
 
-        public SimpleMessageRepository(ITestBucketProvider testBucketProvider)
+        public SimpleMessageRepository(ITestBucketProvider testBucketProvider, IMapper mapper)
         {
             _bucket = testBucketProvider.GetBucket();
+            _mapper = mapper;
         }
 
         /// <inheritdoc />
-        public SimpleMessage AddMessage(SimpleMessage simpleMessage)
+        public SimpleMessage AddMessage(SimpleMessageCreateRequest simpleMessageCreate)
         {
-            // TODO: Implement AutoMapper
-            var dbMessage = new SimpleMessageDbModel
-            {
-                Id = Guid.NewGuid(),
-                Title = simpleMessage.Title,
-                Body = simpleMessage.Body
-            };
+            var dbMessage = _mapper.Map<SimpleMessageDbModel>(simpleMessageCreate);
 
             var couchbaseKey = GetCouchbaseKey(dbMessage.Id);
             _bucket.Insert(couchbaseKey, dbMessage);
             var savedDocument = GetMessage(couchbaseKey);
 
-            // TODO: Implement AutoMapper
-            return new SimpleMessage
-            {
-                Id = savedDocument.Id,
-                Title = savedDocument.Title,
-                Body = savedDocument.Body,
-                CreatedOn = savedDocument.CreatedOn
-            };
+            return _mapper.Map<SimpleMessage>(savedDocument);
         }
 
         /// <inheritdoc />

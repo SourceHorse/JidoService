@@ -10,8 +10,8 @@ namespace Template.Domain.Services
         /// <summary>
         /// Adds a simple message
         /// </summary>
-        /// <param name="simpleMessage">The message</param>
-        SimpleMessage AddMessage(SimpleMessage simpleMessage);
+        /// <param name="simpleMessageCreate">The message</param>
+        SimpleMessage AddMessage(SimpleMessageCreateRequest simpleMessageCreate);
 
         /// <summary>
         /// Retrieves a message

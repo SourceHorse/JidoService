@@ -14,9 +14,9 @@ namespace Template.Domain.Services.Impl
         }
 
         /// <inheritdoc />
-        public SimpleMessage AddMessage(SimpleMessage simpleMessage)
+        public SimpleMessage AddMessage(SimpleMessageCreateRequest simpleMessageCreate)
         {
-            return _simpleMessageRepository.AddMessage(simpleMessage);
+            return _simpleMessageRepository.AddMessage(simpleMessageCreate);
         }
 
         /// <inheritdoc />

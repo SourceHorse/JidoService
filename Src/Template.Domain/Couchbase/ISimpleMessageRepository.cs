@@ -9,7 +9,7 @@ namespace Template.Domain.Couchbase
         /// Adds a simple message
         /// </summary>
         /// <param name="simpleMessage">The message</param>
-        SimpleMessage AddMessage(SimpleMessage simpleMessage);
+        SimpleMessage AddMessage(SimpleMessageCreateRequest simpleMessageCreate);
 
         /// <summary>
         /// Retrieves a simple message

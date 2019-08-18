@@ -18,9 +18,9 @@ namespace Template.Api.Controllers
 
         // POST /SimpleMessage
         [HttpPost]
-        public IActionResult Create([FromBody] SimpleMessage simpleMessage)
+        public IActionResult Create([FromBody] SimpleMessageCreateRequest simpleMessageCreate)
         {
-            var savedDocument = _simpleMessageService.AddMessage(simpleMessage);
+            var savedDocument = _simpleMessageService.AddMessage(simpleMessageCreate);
 
             return new CreatedResult("/SimpleMessage", savedDocument);
         }
