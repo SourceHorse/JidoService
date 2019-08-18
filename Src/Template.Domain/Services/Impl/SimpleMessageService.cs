@@ -26,9 +26,9 @@ namespace Template.Domain.Services.Impl
         }
 
         /// <inheritdoc />
-        public SimpleMessage UpdateMessage(Guid id, SimpleMessage simpleMessage)
+        public SimpleMessage UpdateMessage(Guid id, SimpleMessageUpdateRequest simpleMessageUpdate)
         {
-            return _simpleMessageRepository.UpdateMessage(id, simpleMessage);
+            return _simpleMessageRepository.UpdateMessage(id, simpleMessageUpdate);
         }
 
         /// <inheritdoc />

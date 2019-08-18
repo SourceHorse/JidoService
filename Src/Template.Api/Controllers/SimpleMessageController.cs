@@ -40,9 +40,9 @@ namespace Template.Api.Controllers
 
         // PUT /SimpleMessage/{id}
         [HttpPut("{id}")]
-        public IActionResult Update([FromRoute] string id, [FromBody] SimpleMessage simpleMessage)
+        public IActionResult Update([FromRoute] string id, [FromBody] SimpleMessageUpdateRequest simpleMessageUpdate)
         {
-            var updatedDocument = _simpleMessageService.UpdateMessage(new Guid(id), simpleMessage);
+            var updatedDocument = _simpleMessageService.UpdateMessage(new Guid(id), simpleMessageUpdate);
 
             if (updatedDocument == null)
             {

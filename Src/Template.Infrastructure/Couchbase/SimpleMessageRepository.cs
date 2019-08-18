@@ -24,8 +24,8 @@ namespace Template.Infrastructure.Couchbase
         public SimpleMessage AddMessage(SimpleMessageCreateRequest simpleMessageCreate)
         {
             var dbMessage = _mapper.Map<SimpleMessageDbModel>(simpleMessageCreate);
-
             var couchbaseKey = GetCouchbaseKey(dbMessage.Id);
+
             _bucket.Insert(couchbaseKey, dbMessage);
             var savedDocument = GetMessage(couchbaseKey);
 
@@ -46,7 +46,7 @@ namespace Template.Infrastructure.Couchbase
         }
 
         /// <inheritdoc />
-        public SimpleMessage UpdateMessage(Guid id, SimpleMessage simpleMessage)
+        public SimpleMessage UpdateMessage(Guid id, SimpleMessageUpdateRequest simpleMessageUpdate)
         {
             var couchbaseKey = GetCouchbaseKey(id);
             var existingDocument = GetMessage(couchbaseKey);
@@ -56,14 +56,7 @@ namespace Template.Infrastructure.Couchbase
                 return null;
             }
 
-            // TODO: Implement AutoMapper
-            var dbMessage = new SimpleMessageDbModel
-            {
-                Id = id,
-                Title = simpleMessage.Title,
-                Body = simpleMessage.Body,
-                CreatedOn = existingDocument.CreatedOn
-            };
+            var dbMessage = _mapper.Map<SimpleMessageUpdateRequest, SimpleMessageDbModel>(simpleMessageUpdate, existingDocument);
 
             _bucket.Replace(GetCouchbaseKey(dbMessage.Id), dbMessage);
 

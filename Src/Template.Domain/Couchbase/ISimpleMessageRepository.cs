@@ -8,7 +8,7 @@ namespace Template.Domain.Couchbase
         /// <summary>
         /// Adds a simple message
         /// </summary>
-        /// <param name="simpleMessage">The message</param>
+        /// <param name="simpleMessageCreate">The new message</param>
         SimpleMessage AddMessage(SimpleMessageCreateRequest simpleMessageCreate);
 
         /// <summary>
@@ -21,8 +21,8 @@ namespace Template.Domain.Couchbase
         /// Updates a simple message
         /// </summary>
         /// <param name="id">The message id</param>
-        /// <param name="simpleMessage">The message</param>
-        SimpleMessage UpdateMessage(Guid id, SimpleMessage simpleMessage);
+        /// <param name="simpleMessageUpdate">The update message</param>
+        SimpleMessage UpdateMessage(Guid id, SimpleMessageUpdateRequest simpleMessageUpdate);
 
         /// <summary>
         /// Disables a message for soft delete
