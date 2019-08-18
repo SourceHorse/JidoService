@@ -42,15 +42,7 @@ namespace Template.Infrastructure.Couchbase
                 return null;
             }
 
-            // TODO: Implement AutoMapper
-            return new SimpleMessage
-            {
-                Id = document.Id,
-                Title = document.Title,
-                Body = document.Body,
-                CreatedOn = document.CreatedOn,
-                Enabled = document.Enabled
-            };
+            return _mapper.Map<SimpleMessage>(document);
         }
 
         /// <inheritdoc />
