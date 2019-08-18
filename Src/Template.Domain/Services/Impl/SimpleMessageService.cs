@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Template.Domain.Couchbase;
 using Template.Domain.Models;
 
@@ -14,27 +15,27 @@ namespace Template.Domain.Services.Impl
         }
 
         /// <inheritdoc />
-        public SimpleMessage AddMessage(SimpleMessageCreateRequest simpleMessageCreate)
+        public async Task<SimpleMessage> AddMessage(SimpleMessageCreateRequest simpleMessageCreate)
         {
-            return _simpleMessageRepository.AddMessage(simpleMessageCreate);
+            return await _simpleMessageRepository.AddMessage(simpleMessageCreate);
         }
 
         /// <inheritdoc />
-        public SimpleMessage RetrieveMessage(Guid id)
+        public async Task<SimpleMessage> RetrieveMessage(Guid id)
         {
-            return _simpleMessageRepository.RetrieveMessage(id);
+            return await _simpleMessageRepository.RetrieveMessage(id);
         }
 
         /// <inheritdoc />
-        public SimpleMessage UpdateMessage(Guid id, SimpleMessageUpdateRequest simpleMessageUpdate)
+        public async Task<SimpleMessage> UpdateMessage(Guid id, SimpleMessageUpdateRequest simpleMessageUpdate)
         {
-            return _simpleMessageRepository.UpdateMessage(id, simpleMessageUpdate);
+            return await _simpleMessageRepository.UpdateMessage(id, simpleMessageUpdate);
         }
 
         /// <inheritdoc />
-        public void DeleteMessage(Guid id)
+        public async Task DeleteMessage(Guid id)
         {
-            _simpleMessageRepository.DisableMessage(id);
+            await _simpleMessageRepository.DisableMessage(id);
         }
     }
 }

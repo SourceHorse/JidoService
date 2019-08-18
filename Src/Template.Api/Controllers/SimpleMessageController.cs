@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Template.Domain.Models;
 using Template.Domain.Services;
@@ -18,18 +19,18 @@ namespace Template.Api.Controllers
 
         // POST /SimpleMessage
         [HttpPost]
-        public IActionResult Create([FromBody] SimpleMessageCreateRequest simpleMessageCreate)
+        public async Task<IActionResult> Create([FromBody] SimpleMessageCreateRequest simpleMessageCreate)
         {
-            var savedDocument = _simpleMessageService.AddMessage(simpleMessageCreate);
+            var savedDocument = await _simpleMessageService.AddMessage(simpleMessageCreate);
 
             return new CreatedResult("/SimpleMessage", savedDocument);
         }
 
         // GET /SimpleMessage/{id}
         [HttpGet("{id}")]
-        public IActionResult Read([FromRoute] string id)
+        public async Task<IActionResult> Read([FromRoute] string id)
         {
-            var retrievedDocument = _simpleMessageService.RetrieveMessage(new Guid(id));
+            var retrievedDocument = await _simpleMessageService.RetrieveMessage(new Guid(id));
             if (retrievedDocument == null)
             {
                 return new NotFoundResult();
@@ -40,9 +41,9 @@ namespace Template.Api.Controllers
 
         // PUT /SimpleMessage/{id}
         [HttpPut("{id}")]
-        public IActionResult Update([FromRoute] string id, [FromBody] SimpleMessageUpdateRequest simpleMessageUpdate)
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] SimpleMessageUpdateRequest simpleMessageUpdate)
         {
-            var updatedDocument = _simpleMessageService.UpdateMessage(new Guid(id), simpleMessageUpdate);
+            var updatedDocument = await _simpleMessageService.UpdateMessage(new Guid(id), simpleMessageUpdate);
 
             if (updatedDocument == null)
             {
@@ -54,9 +55,9 @@ namespace Template.Api.Controllers
 
         // DELETE /SimpleMessage/{id}
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] string id)
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
-            _simpleMessageService.DeleteMessage(new Guid(id));
+            await _simpleMessageService.DeleteMessage(new Guid(id));
 
             return new OkResult();
         }

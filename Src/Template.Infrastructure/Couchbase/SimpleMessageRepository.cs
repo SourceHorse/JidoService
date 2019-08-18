@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using Couchbase.Core;
 using Template.Domain.Couchbase;
@@ -16,26 +17,26 @@ namespace Template.Infrastructure.Couchbase
 
         public SimpleMessageRepository(ITestBucketProvider testBucketProvider, IMapper mapper)
         {
-            _bucket = testBucketProvider.GetBucket();
-            _mapper = mapper;
+            _bucket = testBucketProvider != null ? testBucketProvider.GetBucket() : throw new ArgumentNullException(nameof(testBucketProvider));
+            _mapper = mapper ?? throw new ArgumentNullException();
         }
 
         /// <inheritdoc />
-        public SimpleMessage AddMessage(SimpleMessageCreateRequest simpleMessageCreate)
+        public async Task<SimpleMessage> AddMessage(SimpleMessageCreateRequest simpleMessageCreate)
         {
             var dbMessage = _mapper.Map<SimpleMessageDbModel>(simpleMessageCreate);
             var couchbaseKey = GetCouchbaseKey(dbMessage.Id);
 
-            _bucket.Insert(couchbaseKey, dbMessage);
-            var savedDocument = GetMessage(couchbaseKey);
+            await _bucket.InsertAsync(couchbaseKey, dbMessage);
+            var savedDocument = await GetMessage(couchbaseKey);
 
             return _mapper.Map<SimpleMessage>(savedDocument);
         }
 
         /// <inheritdoc />
-        public SimpleMessage RetrieveMessage(Guid id)
+        public async Task<SimpleMessage> RetrieveMessage(Guid id)
         {
-            var document = GetMessage(GetCouchbaseKey(id));
+            var document = await GetMessage(GetCouchbaseKey(id));
 
             if (document == null)
             {
@@ -46,10 +47,10 @@ namespace Template.Infrastructure.Couchbase
         }
 
         /// <inheritdoc />
-        public SimpleMessage UpdateMessage(Guid id, SimpleMessageUpdateRequest simpleMessageUpdate)
+        public async Task<SimpleMessage> UpdateMessage(Guid id, SimpleMessageUpdateRequest simpleMessageUpdate)
         {
             var couchbaseKey = GetCouchbaseKey(id);
-            var existingDocument = GetMessage(couchbaseKey);
+            var existingDocument = await GetMessage(couchbaseKey);
 
             if (existingDocument == null || !existingDocument.Enabled)
             {
@@ -58,24 +59,25 @@ namespace Template.Infrastructure.Couchbase
 
             var dbMessage = _mapper.Map<SimpleMessageUpdateRequest, SimpleMessageDbModel>(simpleMessageUpdate, existingDocument);
 
-            _bucket.Replace(GetCouchbaseKey(dbMessage.Id), dbMessage);
+            await _bucket.ReplaceAsync(couchbaseKey, dbMessage);
 
-            return RetrieveMessage(id);
+            return await RetrieveMessage(id);
         }
 
         /// <inheritdoc />
-        public void DisableMessage(Guid id)
+        public async Task DisableMessage(Guid id)
         {
             var couchbaseKey = GetCouchbaseKey(id);
-            var message = GetMessage(couchbaseKey);
+            var message = await GetMessage(couchbaseKey);
             message.Enabled = false;
 
             _bucket.Replace(couchbaseKey, message);
         }
 
-        private SimpleMessageDbModel GetMessage(string couchbaseKey)
+        private async Task<SimpleMessageDbModel> GetMessage(string couchbaseKey)
         {
-            return _bucket.Get<SimpleMessageDbModel>(couchbaseKey).Value;
+            var result = await _bucket.GetAsync<SimpleMessageDbModel>(couchbaseKey);
+            return result.Value;
         }
 
         private string GetCouchbaseKey(Guid id)

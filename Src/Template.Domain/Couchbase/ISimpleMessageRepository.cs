@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Template.Domain.Models;
 
 namespace Template.Domain.Couchbase
@@ -9,25 +10,25 @@ namespace Template.Domain.Couchbase
         /// Adds a simple message
         /// </summary>
         /// <param name="simpleMessageCreate">The new message</param>
-        SimpleMessage AddMessage(SimpleMessageCreateRequest simpleMessageCreate);
+        Task<SimpleMessage> AddMessage(SimpleMessageCreateRequest simpleMessageCreate);
 
         /// <summary>
         /// Retrieves a simple message
         /// </summary>
         /// <param name="id">The message id</param>
-        SimpleMessage RetrieveMessage(Guid id);
+        Task<SimpleMessage> RetrieveMessage(Guid id);
 
         /// <summary>
         /// Updates a simple message
         /// </summary>
         /// <param name="id">The message id</param>
         /// <param name="simpleMessageUpdate">The update message</param>
-        SimpleMessage UpdateMessage(Guid id, SimpleMessageUpdateRequest simpleMessageUpdate);
+        Task<SimpleMessage> UpdateMessage(Guid id, SimpleMessageUpdateRequest simpleMessageUpdate);
 
         /// <summary>
         /// Disables a message for soft delete
         /// </summary>
         /// <param name="id"></param>
-        void DisableMessage(Guid id);
+        Task DisableMessage(Guid id);
     }
 }
