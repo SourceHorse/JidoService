@@ -14,9 +14,9 @@ namespace Template.Infrastructure
             CreateMap<SimpleMessage, SimpleMessageDbModel>();
             CreateMap<SimpleMessageDbModel, SimpleMessage>();
             CreateMap<SimpleMessageCreateRequest, SimpleMessageDbModel>()
-                .ForMember(dest => dest.Id, opt => opt.Equals(Guid.NewGuid()))
-                .ForMember(dest => dest.CreatedOn, opt => opt.Equals(new DateTime()))
-                .ForMember(dest => dest.Enabled, opt => opt.Equals(true));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => DateTime.UtcNow))
+                .ForMember(dest => dest.Enabled, opt => opt.MapFrom(src => true));
             CreateMap<SimpleMessageUpdateRequest, SimpleMessageDbModel>();
         }
     }
