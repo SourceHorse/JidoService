@@ -12,19 +12,24 @@ namespace Template.Api.Controllers
     public class SimpleMessageController
     {
         private readonly ISimpleMessageService _simpleMessageService;
-        private readonly IValidator _validator;
+        private readonly IValidator<SimpleMessageCreateRequest> _createValidator;
+        private readonly IValidator<SimpleMessageUpdateRequest> _updateValidator;
 
-        public SimpleMessageController(ISimpleMessageService simpleMessageService, IValidator validator)
+        public SimpleMessageController(
+            ISimpleMessageService simpleMessageService, 
+            IValidator<SimpleMessageCreateRequest> createValidator,
+            IValidator<SimpleMessageUpdateRequest> updateValidator)
         {
             _simpleMessageService = simpleMessageService ?? throw new ArgumentNullException(nameof(simpleMessageService));
-            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
+            _createValidator = createValidator ?? throw new ArgumentNullException(nameof(createValidator));
+            _updateValidator = updateValidator ?? throw new ArgumentNullException(nameof(updateValidator));
         }
 
         // POST /SimpleMessage
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SimpleMessageCreateRequest simpleMessageCreate)
         {
-            _validator.Validate(simpleMessageCreate);
+            _createValidator.Validate(simpleMessageCreate);
             var savedDocument = await _simpleMessageService.AddMessage(simpleMessageCreate);
 
             return new CreatedResult("/SimpleMessage", savedDocument);
@@ -47,7 +52,7 @@ namespace Template.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] SimpleMessageUpdateRequest simpleMessageUpdate)
         {
-            _validator.Validate(simpleMessageUpdate);
+            _updateValidator.Validate(simpleMessageUpdate);
             var updatedDocument = await _simpleMessageService.UpdateMessage(new Guid(id), simpleMessageUpdate);
 
             if (updatedDocument == null)
