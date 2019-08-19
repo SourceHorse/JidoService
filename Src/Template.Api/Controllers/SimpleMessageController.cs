@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Template.Domain.Models;
 using Template.Domain.Services;
@@ -11,16 +12,19 @@ namespace Template.Api.Controllers
     public class SimpleMessageController
     {
         private readonly ISimpleMessageService _simpleMessageService;
+        private readonly IValidator _validator;
 
-        public SimpleMessageController(ISimpleMessageService simpleMessageService)
+        public SimpleMessageController(ISimpleMessageService simpleMessageService, IValidator validator)
         {
             _simpleMessageService = simpleMessageService ?? throw new ArgumentNullException(nameof(simpleMessageService));
+            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         }
 
         // POST /SimpleMessage
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SimpleMessageCreateRequest simpleMessageCreate)
         {
+            _validator.Validate(simpleMessageCreate);
             var savedDocument = await _simpleMessageService.AddMessage(simpleMessageCreate);
 
             return new CreatedResult("/SimpleMessage", savedDocument);
@@ -43,6 +47,7 @@ namespace Template.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] SimpleMessageUpdateRequest simpleMessageUpdate)
         {
+            _validator.Validate(simpleMessageUpdate);
             var updatedDocument = await _simpleMessageService.UpdateMessage(new Guid(id), simpleMessageUpdate);
 
             if (updatedDocument == null)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Couchbase.Extensions.DependencyInjection;
-using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
