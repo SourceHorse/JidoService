@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,12 @@ namespace Template.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SimpleMessageCreateRequest simpleMessageCreate)
         {
-            _createValidator.Validate(simpleMessageCreate);
+            var validationResult = await _createValidator.ValidateAsync(simpleMessageCreate);
+            if (!validationResult.IsValid)
+            {
+                return FailValidation(validationResult);
+            }
+
             var savedDocument = await _simpleMessageService.AddMessage(simpleMessageCreate);
 
             return new CreatedResult("/SimpleMessage", savedDocument);
@@ -52,7 +58,12 @@ namespace Template.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] SimpleMessageUpdateRequest simpleMessageUpdate)
         {
-            _updateValidator.Validate(simpleMessageUpdate);
+            var validationResult = await _updateValidator.ValidateAsync(simpleMessageUpdate);
+            if (!validationResult.IsValid)
+            {
+                return FailValidation(validationResult);
+            }
+
             var updatedDocument = await _simpleMessageService.UpdateMessage(new Guid(id), simpleMessageUpdate);
 
             if (updatedDocument == null)
@@ -70,6 +81,12 @@ namespace Template.Api.Controllers
             await _simpleMessageService.DeleteMessage(new Guid(id));
 
             return new OkResult();
+        }
+
+        private IActionResult FailValidation(FluentValidation.Results.ValidationResult validationResult)
+        {
+            var errorMessages = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
+            return new BadRequestObjectResult(errorMessages);
         }
     }
 }

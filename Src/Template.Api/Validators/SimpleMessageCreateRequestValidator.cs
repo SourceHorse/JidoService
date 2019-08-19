@@ -11,8 +11,13 @@ namespace Template.Api.Validators
     {
         public SimpleMessageCreateRequestValidator()
         {
-            RuleFor(msg => msg.Title).NotNull().NotEmpty();
-            RuleFor(msg => msg.Body).NotNull().NotEmpty();
+            RuleFor(msg => msg.Title)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotNull()
+                .NotEmpty();
+            RuleFor(msg => msg.Body).Cascade(CascadeMode.StopOnFirstFailure)
+                .NotNull()
+                .NotEmpty();
         }
     }
 }
