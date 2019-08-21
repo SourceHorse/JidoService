@@ -26,8 +26,6 @@ namespace Template.Tests.Template.ApiTests.Controllers
                 _simpleMessageServiceMock.Object,
                 _createValidatorMock.Object,
                 _updateValidatorMock.Object);
-
-            
         }
 
         [Fact]
@@ -39,8 +37,15 @@ namespace Template.Tests.Template.ApiTests.Controllers
                 Title = "Test Title",
                 Body = "Test Body"
             };
-            _createValidatorMock.Setup(x => x.ValidateAsync(It.IsAny<SimpleMessageCreateRequest>(), It.IsAny<CancellationToken>())).ReturnsAsync(new FluentValidation.Results.ValidationResult());
-            _simpleMessageServiceMock.Setup(x => x.AddMessage(It.IsAny<SimpleMessageCreateRequest>())).ReturnsAsync(new SimpleMessage());
+            _createValidatorMock.Setup(
+                x => x.ValidateAsync(
+                    It.IsAny<SimpleMessageCreateRequest>(), 
+                    It.IsAny<CancellationToken>()))
+                    .ReturnsAsync(new FluentValidation.Results.ValidationResult());
+            _simpleMessageServiceMock.Setup(
+                x => x.AddMessage(
+                    It.IsAny<SimpleMessageCreateRequest>()))
+                    .ReturnsAsync(new SimpleMessage());
 
             // Act
             var result = await _controller.Create(messageCreateObject);
