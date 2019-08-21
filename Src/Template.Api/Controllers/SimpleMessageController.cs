@@ -45,6 +45,11 @@ namespace Template.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Read([FromRoute] string id)
         {
+            if (!IsValidGuid(id))
+            {
+                return new NotFoundResult();
+            }
+
             var retrievedDocument = await _simpleMessageService.RetrieveMessage(new Guid(id));
             if (retrievedDocument == null)
             {
@@ -58,6 +63,11 @@ namespace Template.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] SimpleMessageUpdateRequest simpleMessageUpdate)
         {
+            if (!IsValidGuid(id))
+            {
+                return new NotFoundResult();
+            }
+
             var validationResult = await _updateValidator.ValidateAsync(simpleMessageUpdate);
             if (!validationResult.IsValid)
             {
@@ -78,6 +88,11 @@ namespace Template.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
+            if (!IsValidGuid(id))
+            {
+                return new NotFoundResult();
+            }
+
             await _simpleMessageService.DeleteMessage(new Guid(id));
 
             return new OkResult();
@@ -87,6 +102,19 @@ namespace Template.Api.Controllers
         {
             var errorMessages = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
             return new BadRequestObjectResult(errorMessages);
+        }
+
+        private bool IsValidGuid(string str)
+        {
+            try
+            {
+                new Guid(str);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

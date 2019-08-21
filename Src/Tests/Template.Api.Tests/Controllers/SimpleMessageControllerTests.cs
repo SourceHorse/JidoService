@@ -110,5 +110,19 @@ namespace Template.Api.Tests.Controllers
             // Assert
             Assert.IsType<NotFoundResult>(result);
         }
+
+        [Fact]
+        public async Task Read_InvalidGuid_ReturnsNotFoundResult()
+        {
+            // Arrange
+            var idMock = "1";
+            _simpleMessageServiceMock.Setup(x => x.RetrieveMessage(It.IsAny<Guid>())).ReturnsAsync((SimpleMessage)null);
+
+            // Act
+            var result = await _controller.Read(idMock);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }
