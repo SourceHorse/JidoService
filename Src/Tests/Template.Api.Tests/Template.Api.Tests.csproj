@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Template.Api\Template.Api.csproj" />
-    <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
-    <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Template.Api\Template.Api.csproj" />
+    <ProjectReference Include="..\..\Template.Domain\Template.Domain.csproj" />
+    <ProjectReference Include="..\..\Template.Infrastructure\Template.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

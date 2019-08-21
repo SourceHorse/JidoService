@@ -11,7 +11,7 @@ using Template.Domain.Models;
 using Template.Domain.Services;
 using Xunit;
 
-namespace Template.Tests.Template.ApiTests.Controllers
+namespace Template.Api.Tests.Controllers
 {
     public class SimpleMessageControllerTests
     {
