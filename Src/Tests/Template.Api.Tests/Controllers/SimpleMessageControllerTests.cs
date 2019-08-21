@@ -32,7 +32,7 @@ namespace Template.Api.Tests.Controllers
         public async Task Create_Success_ReturnsCreatedResult()
         {
             // Arrange
-            var messageCreateObject = new SimpleMessageCreateRequest()
+            var messageCreateMock = new SimpleMessageCreateRequest()
             {
                 Title = "Test Title",
                 Body = "Test Body"
@@ -48,10 +48,39 @@ namespace Template.Api.Tests.Controllers
                     .ReturnsAsync(new SimpleMessage());
 
             // Act
-            var result = await _controller.Create(messageCreateObject);
+            var result = await _controller.Create(messageCreateMock);
 
             // Assert
             Assert.IsType<CreatedResult>(result);
+        }
+
+        [Fact]
+        public async Task Create_ValidationFailure_ReturnsBadRequestObjectResult()
+        {
+            // Arrange
+            var messageCreateMock = new SimpleMessageCreateRequest()
+            {
+                Title = "",
+                Body = "Test Body"
+            };
+            var validationFailures = new List<FluentValidation.Results.ValidationFailure> {
+                new FluentValidation.Results.ValidationFailure("Title", "Title cannot be empty")
+            };
+            _createValidatorMock.Setup(
+                x => x.ValidateAsync(
+                    It.IsAny<SimpleMessageCreateRequest>(),
+                    It.IsAny<CancellationToken>()))
+                    .ReturnsAsync(new FluentValidation.Results.ValidationResult(validationFailures));
+            _simpleMessageServiceMock.Setup(
+                x => x.AddMessage(
+                    It.IsAny<SimpleMessageCreateRequest>()))
+                    .ReturnsAsync(new SimpleMessage());
+
+            // Act
+            var result = await _controller.Create(messageCreateMock);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
         }
     }
 }
