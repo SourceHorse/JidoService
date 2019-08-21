@@ -82,5 +82,33 @@ namespace Template.Api.Tests.Controllers
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
         }
+
+        [Fact]
+        public async Task Read_Success_ReturnsOkObjectResult()
+        {
+            // Arrange
+            var idMock = Guid.NewGuid().ToString();
+            _simpleMessageServiceMock.Setup(x => x.RetrieveMessage(It.IsAny<Guid>())).ReturnsAsync(new SimpleMessage());
+
+            // Act
+            var result = await _controller.Read(idMock);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task Read_NotFound_ReturnsNotFoundResult()
+        {
+            // Arrange
+            var idMock = Guid.NewGuid().ToString();
+            _simpleMessageServiceMock.Setup(x => x.RetrieveMessage(It.IsAny<Guid>())).ReturnsAsync((SimpleMessage)null);
+
+            // Act
+            var result = await _controller.Read(idMock);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }
