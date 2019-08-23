@@ -49,5 +49,32 @@ namespace Template.Domain.Tests.Services
             // Assert
             Assert.IsType<SimpleMessage>(result);
         }
+
+        [Fact]
+        public async Task UpdateMessage_ReturnsSimpleMessage()
+        {
+            // Arrange
+            _simpleMessageRepositoryMock.Setup(x => x.UpdateMessage(It.IsAny<Guid>(), It.IsAny<SimpleMessageUpdateRequest>()))
+                .ReturnsAsync(new SimpleMessage());
+
+            // Act
+            var result = await _service.UpdateMessage(Guid.NewGuid(), new SimpleMessageUpdateRequest());
+
+            // Assert
+            Assert.IsType<SimpleMessage>(result);
+        }
+
+        [Fact]
+        public async Task DeleteMessage_ReturnsSimpleMessage()
+        {
+            // Arrange
+            var mockId = Guid.NewGuid();
+
+            // Act
+            await _service.DeleteMessage(mockId);
+
+            // Assert
+            _simpleMessageRepositoryMock.Verify(x => x.DisableMessage(mockId), Times.Once());
+        }
     }
 }
