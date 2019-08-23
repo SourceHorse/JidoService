@@ -38,13 +38,10 @@ namespace Template.Api.Tests.Controllers
                 Body = "Test Body"
             };
             _createValidatorMock.Setup(
-                x => x.ValidateAsync(
-                    It.IsAny<SimpleMessageCreateRequest>(), 
-                    It.IsAny<CancellationToken>()))
+                x => x.ValidateAsync(It.IsAny<SimpleMessageCreateRequest>(), It.IsAny<CancellationToken>()))
                     .ReturnsAsync(new FluentValidation.Results.ValidationResult());
             _simpleMessageServiceMock.Setup(
-                x => x.AddMessage(
-                    It.IsAny<SimpleMessageCreateRequest>()))
+                x => x.AddMessage(It.IsAny<SimpleMessageCreateRequest>()))
                     .ReturnsAsync(new SimpleMessage());
 
             // Act
