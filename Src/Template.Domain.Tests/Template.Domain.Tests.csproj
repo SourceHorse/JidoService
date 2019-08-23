@@ -13,4 +13,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
+    <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
