@@ -26,12 +26,25 @@ namespace Template.Domain.Tests.Services
         public async Task AddMessage_ReturnsSimpleMessage()
         {
             // Arrange
-            _simpleMessageRepositoryMock.Setup(x => x
-                .AddMessage(It.IsAny<SimpleMessageCreateRequest>()))
+            _simpleMessageRepositoryMock.Setup(x => x.AddMessage(It.IsAny<SimpleMessageCreateRequest>()))
                 .ReturnsAsync(new SimpleMessage());
 
             // Act
             var result = await _service.AddMessage(new SimpleMessageCreateRequest());
+
+            // Assert
+            Assert.IsType<SimpleMessage>(result);
+        }
+
+        [Fact]
+        public async Task RetrieveMessage_ReturnsSimpleMessage()
+        {
+            // Arrange
+            _simpleMessageRepositoryMock.Setup(x => x.RetrieveMessage(It.IsAny<Guid>()))
+                .ReturnsAsync(new SimpleMessage());
+
+            // Act
+            var result = await _service.RetrieveMessage(Guid.NewGuid());
 
             // Assert
             Assert.IsType<SimpleMessage>(result);
