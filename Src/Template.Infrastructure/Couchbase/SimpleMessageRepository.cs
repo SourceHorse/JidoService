@@ -10,7 +10,7 @@ using Template.Infrastructure.Couchbase.Models;
 
 namespace Template.Infrastructure.Couchbase
 {
-    class SimpleMessageRepository : ISimpleMessageRepository
+    public class SimpleMessageRepository : ISimpleMessageRepository
     {
         private readonly IBucket _bucket;
         private readonly IMapper _mapper;
