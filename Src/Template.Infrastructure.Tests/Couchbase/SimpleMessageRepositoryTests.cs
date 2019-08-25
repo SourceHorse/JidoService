@@ -30,7 +30,7 @@ namespace Template.Infrastructure.Tests.Couchbase
         public async Task AddMessage_ReturnsSimpleMessage()
         {
             // Arrange
-            var responseTask = Task.FromResult((IOperationResult<SimpleMessageDbModel>)new SimpleMessageDbModel());
+            var responseTask = Task.FromResult((IOperationResult<SimpleMessageDbModel>) new SimpleMessageDbModel());
             _bucketMock.Setup(x => x.InsertAsync(It.IsAny<string>(), It.IsAny<SimpleMessageDbModel>()));
             _bucketMock.Setup(x => x.GetAsync<SimpleMessageDbModel>(It.IsAny<string>())).Returns(responseTask);
             _mapperMock.Setup(x => x.Map<SimpleMessageDbModel>(It.IsAny<SimpleMessageCreateRequest>())).Returns(new SimpleMessageDbModel());
@@ -38,6 +38,9 @@ namespace Template.Infrastructure.Tests.Couchbase
 
             // Act
             var result = await _repository.AddMessage(new SimpleMessageCreateRequest());
+
+            // Assert
+            Assert.IsType<SimpleMessage>(result);
         }
     }
 }
