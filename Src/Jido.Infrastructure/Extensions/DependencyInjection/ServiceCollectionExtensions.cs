@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Jido.Domain.Couchbase;
+﻿using Jido.Domain.Couchbase;
 using Jido.Infrastructure;
 using Jido.Infrastructure.Couchbase;
 using AutoMapper;

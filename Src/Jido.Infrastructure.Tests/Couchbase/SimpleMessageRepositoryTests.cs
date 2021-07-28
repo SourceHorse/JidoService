@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Couchbase.Core;
 using Couchbase;
 using Moq;
-using Jido.Domain.Couchbase;
 using Jido.Domain.Models;
 using Jido.Infrastructure.Couchbase;
 using Jido.Infrastructure.Couchbase.Models;

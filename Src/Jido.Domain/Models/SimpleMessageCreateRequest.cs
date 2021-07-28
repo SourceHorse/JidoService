@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Jido.Domain.Models
+﻿namespace Jido.Domain.Models
 {
     /// <summary>
     /// For creating a new simple message

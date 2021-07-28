@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Moq;
 using Jido.Domain.Couchbase;
 using Jido.Domain.Models;
-using Jido.Domain.Services;
 using Jido.Domain.Services.Impl;
-using Jido.Infrastructure.Couchbase;
 using Xunit;
 
 namespace Jido.Domain.Tests.Services

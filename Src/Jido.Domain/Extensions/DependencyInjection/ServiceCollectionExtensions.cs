@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Jido.Domain.Services;
+﻿using Jido.Domain.Services;
 using Jido.Domain.Services.Impl;
 
 namespace Microsoft.Extensions.DependencyInjection
