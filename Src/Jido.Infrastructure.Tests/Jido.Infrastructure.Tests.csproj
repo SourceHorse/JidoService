@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="CouchbaseNetClient" Version="2.7.11" />
     <PackageReference Include="Moq" Version="4.12.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
@@ -15,9 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Jido.Api\Jido.Api.csproj" />
-    <ProjectReference Include="..\..\Jido.Domain\Jido.Domain.csproj" />
-    <ProjectReference Include="..\..\Jido.Infrastructure\Jido.Infrastructure.csproj" />
+    <ProjectReference Include="..\Jido.Domain\Jido.Domain.csproj" />
+    <ProjectReference Include="..\Jido.Infrastructure\Jido.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
-# dotnetCore.Api.Template
-This is a basic template for creating dotnet core APIs.
+# Jido
+This is an api for handling requests from the Jido project. It was instantiated from the dotnetCore.Api.Template repository
 
 # Required
 dotnet core 2.2 (2.2.1 if using vs 2017)

@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jido.Api", "Jido.Api\Jido.Api.csproj", "{9DE9CC76-32F4-4457-9702-6383A2D5B48B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jido.Infrastructure", "Jido.Infrastructure\Jido.Infrastructure.csproj", "{541F8547-BC3D-4171-B0B5-7043B0E62DCA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jido.Domain", "Jido.Domain\Jido.Domain.csproj", "{0D1F3609-1A00-4530-A84A-A3364C68F93F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jido.Api.Tests", "Tests\Jido.Api.Tests\Jido.Api.Tests.csproj", "{71204901-51F5-45A0-824F-9441FCD725B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9BBA3675-2082-424A-A5B7-28BDEB3D1E1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jido.Domain.Tests", "Jido.Domain.Tests\Jido.Domain.Tests.csproj", "{925675A5-CB7E-43C3-B516-F54931A9C4A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jido.Infrastructure.Tests", "Jido.Infrastructure.Tests\Jido.Infrastructure.Tests.csproj", "{A4D3607A-173B-42CE-95C6-83BDB8CC1E78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DE9CC76-32F4-4457-9702-6383A2D5B48B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DE9CC76-32F4-4457-9702-6383A2D5B48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DE9CC76-32F4-4457-9702-6383A2D5B48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DE9CC76-32F4-4457-9702-6383A2D5B48B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{541F8547-BC3D-4171-B0B5-7043B0E62DCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{541F8547-BC3D-4171-B0B5-7043B0E62DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{541F8547-BC3D-4171-B0B5-7043B0E62DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{541F8547-BC3D-4171-B0B5-7043B0E62DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1F3609-1A00-4530-A84A-A3364C68F93F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D1F3609-1A00-4530-A84A-A3364C68F93F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D1F3609-1A00-4530-A84A-A3364C68F93F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D1F3609-1A00-4530-A84A-A3364C68F93F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71204901-51F5-45A0-824F-9441FCD725B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71204901-51F5-45A0-824F-9441FCD725B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71204901-51F5-45A0-824F-9441FCD725B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71204901-51F5-45A0-824F-9441FCD725B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925675A5-CB7E-43C3-B516-F54931A9C4A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{925675A5-CB7E-43C3-B516-F54931A9C4A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{925675A5-CB7E-43C3-B516-F54931A9C4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925675A5-CB7E-43C3-B516-F54931A9C4A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4D3607A-173B-42CE-95C6-83BDB8CC1E78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4D3607A-173B-42CE-95C6-83BDB8CC1E78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4D3607A-173B-42CE-95C6-83BDB8CC1E78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4D3607A-173B-42CE-95C6-83BDB8CC1E78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{71204901-51F5-45A0-824F-9441FCD725B7} = {9BBA3675-2082-424A-A5B7-28BDEB3D1E1D}
+		{925675A5-CB7E-43C3-B516-F54931A9C4A8} = {9BBA3675-2082-424A-A5B7-28BDEB3D1E1D}
+		{A4D3607A-173B-42CE-95C6-83BDB8CC1E78} = {9BBA3675-2082-424A-A5B7-28BDEB3D1E1D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D81BA42C-F546-4F49-8AB9-1AE845C2F282}
+	EndGlobalSection
+EndGlobal

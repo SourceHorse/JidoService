@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Template.Api.Controllers;
-using Template.Domain.Models;
-using Template.Domain.Services;
+using Jido.Api.Controllers;
+using Jido.Domain.Models;
+using Jido.Domain.Services;
 using Xunit;
 
-namespace Template.Api.Tests.Controllers
+namespace Jido.Api.Tests.Controllers
 {
     public class SimpleMessageControllerTests
     {
