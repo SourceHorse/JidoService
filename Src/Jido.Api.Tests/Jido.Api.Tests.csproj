@@ -15,9 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Jido.Api\Jido.Api.csproj" />
-    <ProjectReference Include="..\..\Jido.Domain\Jido.Domain.csproj" />
-    <ProjectReference Include="..\..\Jido.Infrastructure\Jido.Infrastructure.csproj" />
+    <ProjectReference Include="..\Jido.Api\Jido.Api.csproj" />
+    <ProjectReference Include="..\Jido.Domain\Jido.Domain.csproj" />
   </ItemGroup>
 
 </Project>
