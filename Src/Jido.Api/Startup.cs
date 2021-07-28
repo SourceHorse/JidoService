@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Jido.Infrastructure.Couchbase;
+using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace Jido
 {
@@ -37,13 +39,12 @@ namespace Jido
             });
             services.AddCouchbaseBucket<ITestBucketProvider>("TestBucket");
 
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddMvcCore()
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -56,7 +57,8 @@ namespace Jido
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
