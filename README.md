@@ -1,5 +1,5 @@
 # Jido
-This is an api for handling requests from the Jido project. It was instantiated from the dotnetCore.Api.Template repository
+This is an api for handling requests from the Mappit project. It was instantiated from the dotnetCore.Api.Template repository
 
 # Required
 dotnet core 3.1
